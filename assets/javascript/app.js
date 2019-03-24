@@ -1,5 +1,3 @@
-//search field to add button, styling
-//search field pushes input to topics array, call dButtons
 $(document).ready(function () {
 
     let nom = {
@@ -38,20 +36,21 @@ $(document).ready(function () {
 
         dButtons: function () {
             for (var i = 0; i < nom.topics.length; i++) {
-                let btndiv = $("<button class='snackbutton'>")
+                let btndiv = $("<button class='btn btn-primary snackbutton'>")
                 $(btndiv).text(nom.topics[i]);
                 $("#buttonanchor").append(btndiv);
             }
-
 
         },
         addTopic: function () {
             if ($("#search").val) {
                 let searchbar = "";
                 searchbar = $("#search").val();
-                nom.topics.push(searchbar);
-                $(".snackbutton").remove();
-                nom.dButtons();
+                if (searchbar) {
+                    nom.topics.push(searchbar);
+                    $(".snackbutton").remove();
+                    nom.dButtons();
+                }
             }
         },
     } ///end nom object
@@ -81,6 +80,4 @@ $(document).ready(function () {
             state = $(this).attr("data-state");
         }
     })
-
-
 }) // ready wrapper end

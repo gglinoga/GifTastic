@@ -1,4 +1,38 @@
 #searchcontainer {
-    position: fixed;
-    right: 0;
+  float: right;
+  position: relative;
+  top: 100px;
+  right: 100px;
+}
+
+#search {
+  padding: 8px 15px;
+  background: rgba(50, 50, 50, 0.2);
+  border: 0px solid #dbdbdb;
+}
+
+#submit {
+  position: relative;
+  padding: 6px, 15px;
+  left: -8px;
+  border: 2px solid #207cca;
+  padding: 6px;
+  background-color: #207cca;
+  color: #fafafa;
+}
+
+#submit:hover {
+  background-color: #fafafa;
+  color: #207cca;
+}
+
+.snackbutton {
+  margin: 5px;
+  background-color: #207cca;
+  color: #fafafa;
+}
+
+.snackbutton:hover {
+  background-color: #fafafa;
+  color: #207cca;
 }
