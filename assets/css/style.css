@@ -4,6 +4,7 @@
   top: 100px;
   /* right: 100px; */
   background-color: rgba(0, 0, 0, 0.7);
+  z-index: 500;
 }
 
 h3 {
@@ -14,6 +15,8 @@ h3 {
   padding: 8px 15px;
   background: rgba(50, 50, 50, 0.2);
   border: 0px solid #dbdbdb;
+  z-index: 1000;
+  color: white;
 }
 
 #submit {
@@ -24,6 +27,7 @@ h3 {
   padding: 10px;
   background-color: #207cca;
   color: #fafafa;
+  z-index: 1000;
 }
 
 #submit:hover {
@@ -57,4 +61,5 @@ body {
 
 .container {
     background-color: rgba(255, 255, 255, .7);
+    z-index: 0;
 }
