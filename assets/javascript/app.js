@@ -1,35 +1,34 @@
-//APIKEY LHT7iK6UzGi1TfWhTD61gljoy1F3PThp
-
-///js populates page with buttons
-// each button chooses category, grabs 10 gifs
-
-//can add buttons with input field
-
+//search field to add button, styling
+//search field pushes input to topics array, call dButtons
 $(document).ready(function () {
 
     let nom = {
         topics: ["cupcakes", "muffins", "brownies", "candy", "cookies", "crackers", "chips", "sandwiches", "cheetos", "pretzels", "popcorn", "trail mix", "charcuterie", "cheese", "sushi", "ramen"],
-        search: "cats",
+        search: "cookies",
+        gifsOn: 0,
 
         buttonClick: function () {
-            queryURL = "https://api.giphy.com/v1/gifs/search?api_key=LHT7iK6UzGi1TfWhTD61gljoy1F3PThp&q=cookies&limit=10&offset=0&lang=en",
+            if (nom.gifsON === 1) {
+                $(".gif").remove();
+                $(".ratingtxt").remove();
+            }
+            queryURL = "https://api.giphy.com/v1/gifs/search?api_key=LHT7iK6UzGi1TfWhTD61gljoy1F3PThp&q=" + nom.search + "&limit=10&offset=0&lang=en",
                 $.ajax({
                     url: queryURL,
                     method: "GET"
                 }).then(function (response) {
                     console.log(response)
-                    console.log(this.search);
                     for (var i = 0; i < 10; i++) {
                         let imageURLstill = response.data[i].images.fixed_height_still.url;
                         let imageURLanimate = response.data[i].images.fixed_height.url;
                         let imageRating = response.data[i].rating;
                         let gifImage = $("<img class='gif'>");
-                        let gifRating = $("<h6 class='ratingtxt'>")
+                        let gifRating = $("<p class='ratingtxt'>")
                         gifImage.attr("src", imageURLstill);
                         gifImage.attr("data-still", imageURLstill);
                         gifImage.attr("data-animate", imageURLanimate);
                         gifImage.attr("data-state", "still");
-                        $(gifRating).html(imageRating);
+                        $(gifRating).html("Rating: " + imageRating);
                         $("#gifanchor").append(gifRating)
                         $("#gifanchor").append(gifImage);
 
@@ -38,36 +37,50 @@ $(document).ready(function () {
         },
 
         dButtons: function () {
+            for (var i = 0; i < nom.topics.length; i++) {
+                let btndiv = $("<button class='snackbutton'>")
+                $(btndiv).text(nom.topics[i]);
+                $("#buttonanchor").append(btndiv);
+            }
+
 
         },
         addTopic: function () {
-
+            if ($("#search").val) {
+                let searchbar = "";
+                searchbar = $("#search").val();
+                nom.topics.push(searchbar);
+                $(".snackbutton").remove();
+                nom.dButtons();
+            }
         },
-    }
+    } ///end nom object
 
-    $("#snacksbutton").on("click", function () {
+    nom.dButtons();
+    $("#submit").on("click", function () {
+        nom.addTopic();
+    })
+
+    $("body").on("click", ".snackbutton", function () {
+        nom.search = $(this).text();
         nom.buttonClick();
+        nom.gifsON = 1;
     })
 
     $("body").on("click", ".gif", function () {
         let state = $(this).attr("data-state");
-        console.log(state);
         if (state === "still") {
             let animate = $(this).attr("data-animate");
             $(this).attr("src", animate);
             $(this).attr("data-state", "animate");
-            state=$(this).attr("data-state");
-        }
-        else {
+            state = $(this).attr("data-state");
+        } else {
             let still = $(this).attr("data-still");
             $(this).attr("src", still);
             $(this).attr("data-state", "still");
-            state=$(this).attr("data-state");
+            state = $(this).attr("data-state");
         }
-        ////if still, animate
-
-        ////if animate, still
-
     })
+
 
 }) // ready wrapper end
