@@ -1,12 +1,12 @@
 #searchcontainer {
   float: right;
   position: relative;
-  top: 15px;
+  top: 10px;
   /* right: 100px; */
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 500;
   position: relative;
-  left: 15px;
+  left: 10px;
 }
 h3 {
   color: white;
