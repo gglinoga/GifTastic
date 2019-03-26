@@ -43,7 +43,7 @@ $(document).ready(function () {
         addTopic: function () {
             if ($("#search").val) {
                 let searchbar = "";
-                searchbar = $("#search").val();
+                searchbar = $("#search").val().trim();
                 if (searchbar) {
                     nom.topics.push(searchbar);
                     $(".snackbutton").remove();
