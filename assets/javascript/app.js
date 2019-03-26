@@ -1,10 +1,8 @@
 $(document).ready(function () {
-
     let nom = {
         topics: ["cupcakes", "muffins", "brownies", "candy", "cookies", "crackers", "chips", "sandwiches", "cheetos", "pretzels", "popcorn", "trail mix", "charcuterie", "cheese", "sushi", "ramen"],
-        search: "cookies",
+        search: "",
         gifsOn: 0,
-
         buttonClick: function () {
             if (nom.gifsON === 1) {
                 $(".gif").remove();
@@ -16,10 +14,11 @@ $(document).ready(function () {
                     method: "GET"
                 }).then(function (response) {
                     console.log(response)
-                    for (var i = 0; i < 10; i++) {
+                    for (var i = 0; i < response.data.length; i++) {
                         let imageURLstill = response.data[i].images.fixed_height_still.url;
                         let imageURLanimate = response.data[i].images.fixed_height.url;
                         let imageRating = response.data[i].rating;
+                        let gifDiv = $("<div style='display: inline-block'>")
                         let gifImage = $("<img class='gif'>");
                         let gifRating = $("<p class='ratingtxt'>")
                         gifImage.attr("src", imageURLstill);
@@ -27,20 +26,18 @@ $(document).ready(function () {
                         gifImage.attr("data-animate", imageURLanimate);
                         gifImage.attr("data-state", "still");
                         $(gifRating).html("Rating: " + imageRating);
-                        $("#gifanchor").append(gifRating)
-                        $("#gifanchor").append(gifImage);
-
+                        $("#gifanchor").append(gifDiv);
+                        $(gifDiv).append(gifImage);
+                        $(gifDiv).append(gifRating)
                     }
                 })
         },
-
         dButtons: function () {
             for (var i = 0; i < nom.topics.length; i++) {
                 let btndiv = $("<button class='btn btn-primary snackbutton'>")
                 $(btndiv).text(nom.topics[i]);
                 $("#buttonanchor").append(btndiv);
             }
-
         },
         addTopic: function () {
             if ($("#search").val) {
@@ -53,19 +50,16 @@ $(document).ready(function () {
                 }
             }
         },
-    } ///end nom object
-
+    }
     nom.dButtons();
     $("#submit").on("click", function () {
         nom.addTopic();
     })
-
     $("body").on("click", ".snackbutton", function () {
         nom.search = $(this).text();
         nom.buttonClick();
         nom.gifsON = 1;
     })
-
     $("body").on("click", ".gif", function () {
         let state = $(this).attr("data-state");
         if (state === "still") {
@@ -80,4 +74,4 @@ $(document).ready(function () {
             state = $(this).attr("data-state");
         }
     })
-}) // ready wrapper end
+})
