@@ -7,8 +7,9 @@ $(document).ready(function () {
             if (nom.gifsON === 1) {
                 $(".gif").remove();
                 $(".ratingtxt").remove();
+                $(".gifDiv").remove();
             }
-            queryURL = "https://api.giphy.com/v1/gifs/search?api_key=LHT7iK6UzGi1TfWhTD61gljoy1F3PThp&q=" + nom.search + "&limit=10&offset=0&lang=en",
+            queryURL = "https://api.giphy.com/v1/gifs/search?api_key=LHT7iK6UzGi1TfWhTD61gljoy1F3PThp&q=" + nom.search + "&limit=10&offset=0&lang=en";
                 $.ajax({
                     url: queryURL,
                     method: "GET"
@@ -18,7 +19,7 @@ $(document).ready(function () {
                         let imageURLstill = response.data[i].images.fixed_height_still.url;
                         let imageURLanimate = response.data[i].images.fixed_height.url;
                         let imageRating = response.data[i].rating;
-                        let gifDiv = $("<div style='display: inline-block'>")
+                        let gifDiv = $("<div style='display: inline-block' class='gifDiv'>")
                         let gifImage = $("<img class='gif'>");
                         let gifRating = $("<p class='ratingtxt'>")
                         gifImage.attr("src", imageURLstill);
